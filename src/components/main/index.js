@@ -54,6 +54,7 @@ import { Home, Page, WhenNotFound } from 'components/routes';
 import ReduxCounter from 'components/redux';
 import Stats from 'components/stats';
 import Styles from 'components/styles';
+import ContactModal from 'components/modals/contact';
 
 // Styles
 import css from './main.scss';
@@ -106,5 +107,6 @@ export default () => (
     <hr />
     <p>Stylesheet examples:</p>
     <Styles />
+    <ContactModal />
   </div>
 );
