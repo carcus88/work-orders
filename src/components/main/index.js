@@ -30,13 +30,15 @@ import React from 'react';
 
 // Routing via React Router
 import {
-  Link,
-  Route,
-  Switch,
+    Link,
+    Route,
+    Switch,
 } from 'react-router-dom';
 
 // <Helmet> component for setting the page title/meta tags
 import Helmet from 'react-helmet';
+import Search from 'components/search';
+
 
 /* ReactQL */
 
@@ -50,14 +52,14 @@ import { Redirect, history } from 'kit/lib/routing';
 // per file, or in the case of <Home>, <Page> and <WhenFound>, we can group
 // multiple components per file where it makes sense to do so
 import GraphQLMessage from 'components/graphql';
-import { Home, Page, WhenNotFound } from 'components/routes';
+import { Home, WorkOrders, WhenNotFound } from 'components/routes';
 import ReduxCounter from 'components/redux';
 import Stats from 'components/stats';
 import Styles from 'components/styles';
 import ContactModal from 'components/modals/contact';
 
-import NewWorkOrder from 'components/new_work_order';
-import Search from 'components/search';
+//Views
+//import CreatewWorkOrder from './create_work_order';
 
 // Styles
 // import 'bootstrap/css/bootstrap.css';
@@ -73,38 +75,67 @@ import logo from './reactql-logo.svg';
 // anywhere, simply by importing it-- use this in Redux actions, functions,
 // React `onClick` events, etc.
 function changeRoute() {
-  history.push('/page/about');
+    history.push('/page/about');
+}
+
+function NavBar(props){
+    return(
+        <div>
+            <div className='navbar navbar-expand-lg navbar-dark bg-dark'>
+                <ul className="navbar-nav">
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="/">Home</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="/work_orders">Work Orders</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="/clients">Clients</Link>
+                    </li>
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="contacts">Contacts</Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
 }
 
 export default () => (
-  <div>
-    <Helmet>
-      <title>ReactQL application</title>
-      <meta name="description" content="ReactQL starter kit app" />
-      {/* <base href="http://localhost:8081/" /> */}
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossOrigin="anonymous" />
-      <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossOrigin="anonymous" />
-      <script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossOrigin="anonymous" />
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossOrigin="anonymous" />
-    </Helmet>
-
-    <div className="container-fluid">
-      <Search />
-      <NewWorkOrder />
+    <div>
+        <Helmet>
+            <title>ReactQL application</title>
+            <meta name="description" content="ReactQL starter kit app"/>
+            {/* <base href="http://localhost:8081/" /> */}
+            <link
+                rel="stylesheet"
+                href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                crossOrigin="anonymous"/>
+            <script
+                src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossOrigin="anonymous"/>
+            <script
+                src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossOrigin="anonymous"/>
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossOrigin="anonymous"/>
+        </Helmet>
+        <div className="container-fluid">
+            <div>
+                <NavBar />
+                <Search />
+            </div>
+            <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/work_orders" component={WorkOrders}/>
+                <Redirect from="/old/path" to="/new/path"/>
+                <Route component={WhenNotFound}/>
+            </Switch>
+        </div>
     </div>
-
-  </div>
 );

@@ -13,9 +13,6 @@
 // ----------------------
 // IMPORTS
 
-import 'bootstrap/bootstrap.min';
-import 'bootstrap/popper.min';
-
 /* ReactQL */
 
 // Config API, for adding reducers and configuring our ReactQL app
