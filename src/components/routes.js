@@ -17,6 +17,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WorkOrdersMain from 'components/work_orders';
 
+
 /* ReactQL */
 
 //Custom Views
@@ -39,15 +40,50 @@ export const Home = () => (
 // This gives you an idea how React Router v4 works -- we have a `match`
 // prop that gives us information on the route we can use within the component
 export const WorkOrders = ({ match }) => (
-  <div className="container">
-      <WorkOrdersMain />
-  </div>
+    <div className="jumbotron">
+        <WorkOrdersMain url={match.url}/>
+    </div>
+);
+
+WorkOrders.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
+
+export const Clients = ({ match }) => (
+    <div className="container">
+        <h1>Clients</h1>
+    </div>
+);
+
+Clients.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
+
+export const Contacts = ({ match }) => (
+    <div className="container">
+        <h1>Contacts</h1>
+    </div>
+);
+
+Contacts.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
+
+
+export const Page = ({ match }) => (
+  <h1>Generic Page: {match.params.name}</h1>
 );
 
 
-// Specify PropTypes if the `match` object, which is injected to props by
+// Specify PropTypes of the `match` object, which is injected to props by
 // the <Route> component
-WorkOrders.propTypes = {
+Page.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.object,
   }).isRequired,

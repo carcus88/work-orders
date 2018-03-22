@@ -6,7 +6,7 @@ function New (props){
         <div className="navbar navbar-expand-lg">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <Link className="navbar-link" to="" ></Link>
+                    <Link className="navbar-link" to="work_order/create" ></Link>
                 </li>
             </ul>
         </div>

@@ -12,6 +12,7 @@ class WorkOrderForm extends React.Component {
         super(props);
         this.state = {
             count: 0,
+            isEdit: false,
             clientName: 'Audio General',
             contactName: 'Dave Spiegel',
             contactPhone: '215-555-5555',
@@ -21,19 +22,20 @@ class WorkOrderForm extends React.Component {
             items: [],
         }
 
-        this.getClient = this.getClient.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getClient(){
-        this.setState = (() => ({
-            contact: <Clients />
-        }));
+
+    handleSubmit(event){
+        alert('You did it');
+        event.preventDefault();
     }
 
     render() {
         return (
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
+                    <input className="btn btn-primary" type="submit" value="Save"/>
                     <ContactDetails
                         clientName={this.state.clientName}
                         contactName={this.state.contactName}
@@ -46,6 +48,7 @@ class WorkOrderForm extends React.Component {
                     />
                     <AddItem />
                     <ItemList />
+                    <input className="btn btn-primary" type="submit" value="Save"/>
                 </form>
             </div>
         );

@@ -27,6 +27,7 @@
 
 // React
 import React from 'react';
+import render from 'react-dom';
 
 // Routing via React Router
 import {
@@ -52,7 +53,14 @@ import { Redirect, history } from 'kit/lib/routing';
 // per file, or in the case of <Home>, <Page> and <WhenFound>, we can group
 // multiple components per file where it makes sense to do so
 import GraphQLMessage from 'components/graphql';
-import { Home, WorkOrders, WhenNotFound } from 'components/routes';
+import {
+    Home,
+    Page,
+    WorkOrders,
+    Contacts,
+    Clients,
+    WhenNotFound
+} from 'components/routes';
 import ReduxCounter from 'components/redux';
 import Stats from 'components/stats';
 import Styles from 'components/styles';
@@ -93,8 +101,12 @@ function NavBar(props){
                         <Link className="nav-link" to="/clients">Clients</Link>
                     </li>
                     <li className="navbar-item">
-                        <Link className="nav-link" to="contacts">Contacts</Link>
+                        <Link className="nav-link" to="/contacts">Contacts</Link>
                     </li>
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="page/about">About</Link>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -132,7 +144,13 @@ export default () => (
             </div>
             <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route path="/work_orders" component={WorkOrders}/>
+                <Route path="/page/:name" component={Page}/>
+                <Route exact path="/work_orders" component={WorkOrders}/>
+                <Route path="/work_orders/:name" component={WorkOrders}/>
+                <Route path="/contacts" component={Contacts} />
+                <Route path="/contacts/:name" component={Contacts} />
+                <Route path="/clients" component={Clients} />
+                <Route path="/clients/:name" component={Clients} />
                 <Redirect from="/old/path" to="/new/path"/>
                 <Route component={WhenNotFound}/>
             </Switch>
