@@ -15,6 +15,7 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+import WorkOrdersMain from 'components/work_orders';
 
 /* ReactQL */
 
@@ -28,6 +29,18 @@ export const Home = () => (
   <h1>You&apos;re on the home page - click another link above</h1>
 );
 
+
+export const WorkOrders = ({match}) => (
+    <div>
+        <WorkOrdersMain />
+    </div>
+);
+
+WorkOrders.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
 // Helper component that will be conditionally shown when the route matches.
 // This gives you an idea how React Router v4 works -- we have a `match`
 // prop that gives us information on the route we can use within the component

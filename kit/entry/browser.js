@@ -58,7 +58,7 @@ const store = createNewStore(client);
 function doRender() {
   ReactDOM.hydrate(
     <Root />,
-    document.getElementById('main'),
+    document.getElementById('main')
   );
 }
 

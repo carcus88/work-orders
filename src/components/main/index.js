@@ -30,9 +30,9 @@ import React from 'react';
 
 // Routing via React Router
 import {
-  Link,
-  Route,
-  Switch,
+    Link,
+    Route,
+    Switch,
 } from 'react-router-dom';
 
 // <Helmet> component for setting the page title/meta tags
@@ -50,61 +50,53 @@ import { Redirect, history } from 'kit/lib/routing';
 // per file, or in the case of <Home>, <Page> and <WhenFound>, we can group
 // multiple components per file where it makes sense to do so
 import GraphQLMessage from 'components/graphql';
-import { Home, Page, WhenNotFound } from 'components/routes';
-import ReduxCounter from 'components/redux';
-import Stats from 'components/stats';
-import Styles from 'components/styles';
+import { Home, Page, WorkOrders, WhenNotFound } from 'components/routes';
 
 // Styles
+import bootstrap from 'node_modules/bootstrap';ç
 import css from './main.scss';
 
-// Get the ReactQL logo.  This is a local .svg file, which will be made
-// available as a string relative to [root]/dist/assets/img/
-import logo from './reactql-logo.svg';
-
-// ----------------------
-
-// Example function to show that the `history` object can be changed from
-// anywhere, simply by importing it-- use this in Redux actions, functions,
-// React `onClick` events, etc.
-function changeRoute() {
-  history.push('/page/about');
+function Nav(props) {
+    return (
+        <div className='navbar navbar-expand-lg navbar-dark bg-dark'>
+            <div className='collapse navbar-collapse'>
+                <ul className='navbar-nav mr-auto'>
+                    <li className='nav-item'>
+                        <Link className='nav-link' to="/">Home</Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link className='nav-link' to="/work_orders">Work Orders</Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link className='nav-link' to="/page/about">About</Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link className='nav-link' to="/page/contact">Contact</Link>
+                    </li>
+                    <li className='nav-item'>
+                        <Link className='nav-link' to="/old/path">Go Back</Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
 }
 
 export default () => (
-  <div>
-    <Helmet>
-      <title>ReactQL application</title>
-      <meta name="description" content="ReactQL starter kit app" />
-      {/* <base href="http://localhost:8081/" /> */}
-    </Helmet>
-    <div className={css.hello}>
-      <img src={logo} alt="ReactQL" className={css.logo} />
+    <div className='container'>
+        <Helmet>
+            <title>ReactQL application</title>
+            <meta name="description" content="ReactQL starter kit app"/>
+            {/* <base href="http://localhost:8081/" /> */}
+            <link href="/Users/mat/projects/work-orders/node_modules/bootstrap/dist/js/bootstrap.js" type="style/css"/>
+        </Helmet>
+        <Nav />
+        <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/work_orders" component={WorkOrders}/>
+            <Route path="/page/:name" component={Page}/>
+            <Redirect from="/old/path" to="/new/path"/>
+            <Route component={WhenNotFound}/>
+        </Switch>
     </div>
-    <hr />
-    <GraphQLMessage />
-    <hr />
-    <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/page/about">About</Link></li>
-      <li><Link to="/page/contact">Contact</Link></li>
-      <li><Link to="/old/path">Redirect from /old/path &#8594; /new/path</Link></li>
-    </ul>
-    Change routes anywhere &mdash; <button onClick={changeRoute}>Like here (About)</button>
-    <hr />
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/page/:name" component={Page} />
-      <Redirect from="/old/path" to="/new/path" />
-      <Route component={WhenNotFound} />
-    </Switch>
-    <hr />
-    <ReduxCounter />
-    <hr />
-    <p>Runtime info:</p>
-    <Stats />
-    <hr />
-    <p>Stylesheet examples:</p>
-    <Styles />
-  </div>
 );
