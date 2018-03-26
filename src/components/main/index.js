@@ -30,14 +30,13 @@ import React from 'react';
 
 // Routing via React Router
 import {
-  Link,
-  Route,
-  Switch,
+    Link,
+    Route,
+    Switch,
 } from 'react-router-dom';
 
 // <Helmet> component for setting the page title/meta tags
 import Helmet from 'react-helmet';
-
 /* ReactQL */
 
 // NotFound 404 handler for unknown routes, and the app-wide `history` object
@@ -50,61 +49,41 @@ import { Redirect, history } from 'kit/lib/routing';
 // per file, or in the case of <Home>, <Page> and <WhenFound>, we can group
 // multiple components per file where it makes sense to do so
 import GraphQLMessage from 'components/graphql';
-import { Home, Page, WhenNotFound } from 'components/routes';
+import { Home, WorkOrders, Clients, Contacts, Page, WhenNotFound } from 'components/routes';
 import ReduxCounter from 'components/redux';
-import Stats from 'components/stats';
-import Styles from 'components/styles';
-
 // Styles
+import bootstrap from 'react-bootstrap';
 import css from './main.scss';
 
-// Get the ReactQL logo.  This is a local .svg file, which will be made
-// available as a string relative to [root]/dist/assets/img/
-import logo from './reactql-logo.svg';
-
-// ----------------------
-
-// Example function to show that the `history` object can be changed from
-// anywhere, simply by importing it-- use this in Redux actions, functions,
-// React `onClick` events, etc.
-function changeRoute() {
-  history.push('/page/about');
-}
 
 export default () => (
-  <div>
-    <Helmet>
-      <title>ReactQL application</title>
-      <meta name="description" content="ReactQL starter kit app" />
-      {/* <base href="http://localhost:8081/" /> */}
-    </Helmet>
-    <div className={css.hello}>
-      <img src={logo} alt="ReactQL" className={css.logo} />
+    <div className='container'>
+        <Helmet>
+            <title>ReactQL application</title>
+            <meta name="description" content="ReactQL starter kit app"/>
+            {/* <base href="http://localhost:8081/" /> */}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+                  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+                  crossorigin="anonymous"/>
+        </Helmet>
+        <div className="navbar navbar-extends-lg">
+            <ul className='nav-justified'>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to='/work_orders'>Work Orders</Link></li>
+                <li><Link to='/clients'>Clients</Link></li>
+                <li><Link to='/contacts'>Contacts</Link></li>
+                <li><Link to="/page/about">About</Link></li>
+                <li><Link to="/page/contact">Contact</Link></li>
+            </ul>
+        </div>
+        <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path='/work_orders' component={WorkOrders}/>
+            <Route exact path='/contacts' component={Contacts}/>
+            <Route exact path='/clients' component={Clients}/>
+            <Route path="/page/:name" component={Page}/>
+            <Redirect from="/old/path" to="/new/path"/>
+            <Route component={WhenNotFound}/>
+        </Switch>
     </div>
-    <hr />
-    <GraphQLMessage />
-    <hr />
-    <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/page/about">About</Link></li>
-      <li><Link to="/page/contact">Contact</Link></li>
-      <li><Link to="/old/path">Redirect from /old/path &#8594; /new/path</Link></li>
-    </ul>
-    Change routes anywhere &mdash; <button onClick={changeRoute}>Like here (About)</button>
-    <hr />
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/page/:name" component={Page} />
-      <Redirect from="/old/path" to="/new/path" />
-      <Route component={WhenNotFound} />
-    </Switch>
-    <hr />
-    <ReduxCounter />
-    <hr />
-    <p>Runtime info:</p>
-    <Stats />
-    <hr />
-    <p>Stylesheet examples:</p>
-    <Styles />
-  </div>
 );

@@ -17,6 +17,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /* ReactQL */
+import WorkOrdersMain from 'components/work_orders';
+import ClientsMain from 'components/clients';
+import ContactsMain from 'components/contacts';
 
 // NotFound 404 handler for unknown routes
 import { NotFound } from 'kit/lib/routing';
@@ -25,14 +28,50 @@ import { NotFound } from 'kit/lib/routing';
 
 // We'll display this <Home> component when we're on the / route
 export const Home = () => (
-  <h1>You&apos;re on the home page - click another link above</h1>
+  <h3>Home</h3>
 );
+
+export const WorkOrders = ({ match }) => (
+    <WorkOrdersMain/>
+);
+
+// Specify PropTypes if the `match` object, which is injected to props by
+// the <Route> component
+WorkOrders.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
+
+export const Clients = ({ match }) => (
+    <ClientsMain />
+);
+
+// Specify PropTypes if the `match` object, which is injected to props by
+// the <Route> component
+Clients.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
+
+export const Contacts = ({ match }) => (
+    <ContactsMain />
+);
+
+// Specify PropTypes if the `match` object, which is injected to props by
+// the <Route> component
+Contacts.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.object,
+    }).isRequired,
+};
 
 // Helper component that will be conditionally shown when the route matches.
 // This gives you an idea how React Router v4 works -- we have a `match`
 // prop that gives us information on the route we can use within the component
 export const Page = ({ match }) => (
-  <h1>Changed route: {match.params.name}</h1>
+  <h3>{match.params.name}</h3>
 );
 
 // Specify PropTypes if the `match` object, which is injected to props by
